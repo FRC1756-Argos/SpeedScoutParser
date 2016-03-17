@@ -159,6 +159,9 @@ def main():
                         print("\t{0}: {1}".format(trace['function'],
                             trace['lineNumber']))
 
+    if not publishError:
+        os.remove(NEW_DATA)
+
 
 if __name__ == '__main__':
     main()

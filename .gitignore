@@ -1,4 +1,3 @@
 config
 cache/
-client_secret.json
-client_secret.json gmail-python-speedscoutparser.json
+*.json
