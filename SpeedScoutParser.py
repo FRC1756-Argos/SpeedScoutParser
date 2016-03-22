@@ -89,7 +89,6 @@ def main():
             if kvPairs[0] == "ScriptID":
                 SCRIPT_ID = kvPairs[1]
 
-    haveAttachments = False
     if not os.path.exists(CACHE_DIR):
         os.makedirs(CACHE_DIR)
 
@@ -111,7 +110,8 @@ def main():
       messages.extend(response['messages'])
     for message in messages:
         msg_id=message['id']
-        
+        haveAttachments = False
+
         curMessage = gmailService.users().messages().get(userId=USER_ID, id=msg_id).execute()
         for part in curMessage['payload']['parts']:
             if part['filename']:
@@ -128,7 +128,9 @@ def main():
                     f.write(file_data)
                 haveAttachments = True
 
-        gmailService.users().messages().trash(userId=USER_ID, id=msg_id).execute()
+        # Only delete messages with attachments
+        if haveAttachments:
+            gmailService.users().messages().trash(userId=USER_ID, id=msg_id).execute()
 
     matchData = [f for f in os.listdir(CACHE_DIR) if os.path.isfile(os.path.join(CACHE_DIR,f)) and (f not in NEW_DATA)]
     combineMatchData(matchData,NEW_DATA)
