@@ -25,6 +25,7 @@ CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'SpeedScoutParser'
 CONFIG_FILE = './config'
 SCRIPT_ID = None
+USER_ID = 'me'
 CACHE_DIR = './cache'
 NEW_DATA = os.path.join(CACHE_DIR,'matchData.csv')
 HEADER = ["Team #","A. Color","Match #","Reached Def.","Crossed Def.",
@@ -97,7 +98,7 @@ def main():
     gmailService = discovery.build('gmail', 'v1', http=http)
     scriptService = discovery.build('script', 'v1', http=http)
 
-    response = gmailService.users().messages().list(userId='me',q='').execute()
+    response = gmailService.users().messages().list(userId=USER_ID,q='').execute()
     
     messages = []
     if 'messages' in response:
@@ -105,20 +106,20 @@ def main():
 
     while 'nextPageToken' in response:
       page_token = response['nextPageToken']
-      response = gmailService.users().messages().list(userId='me', q='',
+      response = gmailService.users().messages().list(userId=USER_ID, q='',
                                          pageToken=page_token).execute()
       messages.extend(response['messages'])
     for message in messages:
         msg_id=message['id']
         
-        curMessage = gmailService.users().messages().get(userId='me', id=msg_id).execute()
+        curMessage = gmailService.users().messages().get(userId=USER_ID, id=msg_id).execute()
         for part in curMessage['payload']['parts']:
             if part['filename']:
                 if 'data' in part['body']:
                     data=part['body']['data']
                 else:
                     att_id=part['body']['attachmentId']
-                    att=gmailService.users().messages().attachments().get(userId='me', messageId=msg_id,id=att_id).execute()
+                    att=gmailService.users().messages().attachments().get(userId=USER_ID, messageId=msg_id,id=att_id).execute()
                     data=att['data']
                 file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
                 path = CACHE_DIR+'/'+part['filename']
@@ -127,7 +128,7 @@ def main():
                     f.write(file_data)
                 haveAttachments = True
 
-        gmailService.users().messages().delete(userId='me', id=msg_id).execute()
+        gmailService.users().messages().trash(userId=USER_ID, id=msg_id).execute()
 
     matchData = [f for f in os.listdir(CACHE_DIR) if os.path.isfile(os.path.join(CACHE_DIR,f)) and (f not in NEW_DATA)]
     combineMatchData(matchData,NEW_DATA)
