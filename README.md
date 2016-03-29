@@ -2,7 +2,7 @@
 Collects csv files from SpeedScout16 and generates an FRC scouting spreadsheet.
 
 ## Overview
-This software collects emails sent by [SpeedScout16](https://itunes.apple.com/us/app/speedscout16-frc-scouting/id1088137228?mt=8) and uses the scouting data to populate a Google Docs spreadsheet.  This spreadsheet may contain data analysis functionality to help teams in alliance selections.
+This software collects emails sent by SpeedScout16 ([Android](https://github.com/dkt01/SpeedScout16-Android)/[iOS](https://itunes.apple.com/us/app/speedscout16-frc-scouting/id1088137228?mt=8)) and uses the scouting data to populate a Google Docs spreadsheet.  This spreadsheet may contain data analysis functionality to help teams in alliance selections.
 
 ## Prerequisites
 SpeedScoutParser uses the Python interfaces to the following APIs:
