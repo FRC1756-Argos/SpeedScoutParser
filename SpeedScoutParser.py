@@ -28,11 +28,8 @@ SCRIPT_ID = None
 USER_ID = 'me'
 CACHE_DIR = './cache'
 NEW_DATA = os.path.join(CACHE_DIR,'matchData.csv')
-HEADER = ["Team #","A. Color","Match #","Reached Def.","Crossed Def.",
-          "Low Goal","High Goal","Low Goal","High Goal","Portcullis",
-          "Cheval De Frise","Moat","Ramparts","Drawbridge","Sally Port",
-          "Rock Wall","Rough Terrain","Low Bar","Robots Blocked",
-          "Shots Blocked","Challenged Tower","Scaled Tower"]
+HEADER = ["Team #","A. Color","Match #","Crossed BLine","Low Boiler",
+          "High Boiler","Gear","Low Boiler","High Boiler","Gears","Climbed AShip"]
 
 
 def get_credentials():
