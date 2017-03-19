@@ -29,7 +29,7 @@ USER_ID = 'me'
 CACHE_DIR = './cache'
 NEW_DATA = os.path.join(CACHE_DIR,'matchData.csv')
 HEADER = ["Team #","A. Color","Match #","Crossed BLine","Low Boiler",
-          "High Boiler","Gear","Low Boiler","High Boiler","Gears","Climbed AShip"]
+          "High Boiler","Gear","Low Boiler","High Boiler","Gears","Climbed AShip","Comments"]
 
 
 def get_credentials():
